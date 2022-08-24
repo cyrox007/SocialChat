@@ -1,14 +1,6 @@
-from flask import Flask
-from flask import render_template
+from app import create_app
 
-app = Flask(__name__)
-
-
-@app.route("/")
-@app.route("/index")
-def index():
-    return render_template('pages/index.html')
-
+app = create_app()
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=8000)
+    app.run(debug=True, host='0.0.0.0', port=8080)
