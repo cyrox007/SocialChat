@@ -80,3 +80,11 @@ html {
 *::-webkit-scrollbar {
   width: 5px;
 }
+
+h1, h2, h3 {
+  font-family: var(--font-headers);
+}
+
+p, span {
+  font-family: var(--font-main);
+}
