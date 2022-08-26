@@ -1,0 +1,2 @@
+{% include 'core/style.css' %}
+{% include 'auth/style.css' %}

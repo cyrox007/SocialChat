@@ -2,6 +2,16 @@
 
 {% block content %}
 
-<h1>{{ title }}</h1>
+
+
+<form method="post">
+    <h1>{{ title }}</h1>
+    <label for="username">Username</label>
+    <input name="username" id="username" placeholder="Введите логин" required>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" placeholder="Введите пароль" required>
+    <input type="submit" value="Log In">
+    <p>Еще не зарегестрированы - <a href="{{ url_for('auth.register') }}">Регистрация</a></p>
+</form>
 
 {% endblock %}

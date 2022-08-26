@@ -1,0 +1,41 @@
+form {
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  padding: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: center;
+  background: var(--color-light);
+  border: 10px solid var(--color-main-dark);
+}
+form h1 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: var(--color-dark);
+}
+form input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid var(--color-dark);
+}
+form input:focus {
+  border: 1px solid var(--color-main);
+}
+form input[type=submit] {
+  cursor: pointer;
+  background: var(--color-dark);
+  border: none;
+  color: var(--color-light);
+  -webkit-transition: background 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out;
+}
+form input[type=submit]:hover {
+  background: var(--color-main-dark);
+}

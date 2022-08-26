@@ -49,9 +49,7 @@ def auth():
         'SELECT * FROM user WHERE username = ?', (username,)
     ).fetchone() 
     """ возвращает одну строку из запроса. 
-        Если запрос не вернул никаких результатов, он возвращает None. 
-        Позже будет использоваться функция fetchall(), 
-        которая возвращает список всех результатов. 
+        Если запрос не вернул никаких результатов, он возвращает None.
     """
 
     """ хэширует отправленный пароль таким же образом, как и сохраненный хэш, 
@@ -90,3 +88,14 @@ def load_logged_in_user():
 def logout():
     session.clear()
     return redirect(url_for('index'))
+
+
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for('auth.login'))
+
+        return view(**kwargs)
+
+    return wrapped_view

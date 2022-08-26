@@ -22,6 +22,10 @@ html {
   scrollbar-color: var(--color-dark) var(--color-light-second);
 }
 
+body {
+  background: var(--color-light-second);
+}
+
 *::-webkit-scrollbar-button {
   background-image: url("");
   background-repeat: no-repeat;
