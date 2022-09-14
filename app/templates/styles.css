@@ -1,2 +1,3 @@
 {% include 'core/style.css' %}
 {% include 'auth/style.css' %}
+{% include 'home/style.css' %}
