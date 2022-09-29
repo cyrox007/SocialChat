@@ -6,6 +6,7 @@
   --color-dark: #1F2937;
   --font-main: "Times New Roman", Times, serif;
   --font-headers: Arial, Helvetica, sans-serif;
+  --container-size: 600px;
 }
 
 * {
@@ -91,4 +92,45 @@ h1, h2, h3 {
 
 p, span {
   font-family: var(--font-main);
+}
+
+header {
+  padding: 15px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: var(--color-light);
+  border-bottom: 1px solid var(--color-dark);
+}
+header nav {
+  width: 100%;
+  max-width: var(--container-size);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+header nav a.logo {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-dark);
+}
+header nav a {
+  text-decoration: none;
+  color: var(--color-dark);
 }

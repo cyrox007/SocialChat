@@ -8,7 +8,7 @@ from app.db import get_db
 
 bp = Blueprint('blog', __name__)
 
-@bp.route('/')
+@bp.get('/')
 def index():
     title = "Блог"
     db = get_db()
@@ -22,3 +22,10 @@ def index():
             posts=posts, 
             title=title
         )
+
+
+@bp.get('/create')
+def create():
+    return render_template(
+        'home/create.html'
+    )

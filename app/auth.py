@@ -8,7 +8,11 @@ from app.db import get_db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
-@bp.route('/register', methods=('GET', 'POST'))
+@bp.get('register')
+def register_page():
+    return render_template('auth/register.html')
+
+@bp.post('/register')
 def register():
     if request.method == 'POST':
         username = request.form['username']
@@ -16,10 +20,8 @@ def register():
         db = get_db()
         error = None
 
-        if not username:
-            error = 'Username is required.'
-        elif not password:
-            error = 'Password is required.'
+        if not username or not password:
+            error = 'Username or password is required.'
 
         if error is None:
             try:
