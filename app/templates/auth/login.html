@@ -1,8 +1,7 @@
 {% extends 'core/base.html' %}
+{% set title = 'Авторизация' %}
 
 {% block content %}
-
-
 
 <form method="post">
     <h1>{{ title }}</h1>
@@ -10,6 +9,9 @@
     <input name="username" id="username" placeholder="Введите логин" required>
     <label for="password">Password</label>
     <input type="password" name="password" id="password" placeholder="Введите пароль" required>
+    {% if error != '' %}
+        <p>{{ error }}</p>
+    {% endif %}
     <input type="submit" value="Log In">
     <p>Еще не зарегестрированы - <a href="{{ url_for('auth.register') }}">Регистрация</a></p>
 </form>

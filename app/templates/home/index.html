@@ -1,25 +1,23 @@
 {% extends "core/base.html" %}
 
 {% block content %}
-    <header>
-        <nav>
-            <a class="logo" href="{{ url_for('index') }}">Blogs</a>
-            {% if g.user %}
-                <a class="action" href="{{ url_for('blog.create') }}">New</a>
-            {% endif %}
-        </nav>
-    </header>
     <main>
         <h1>{{ title }}</h1>
+        
         {% for post in posts %}
-            <h2>{{ post['title'] }}</h2>
-            <div class="about">
-                by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}
-            </div>
-            {% if g.user['id'] == post['author_id'] %}
-                <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
-            {% endif %}
-            <p class="body">{{ post['body'] }}</p>
+            <article>
+                <h2>{{ post['title'] }}</h2>
+                <div class="about">
+                    by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}
+                </div>
+                <p class="body">{{ post['body'] }}</p>
+                {% if g.user['id'] == post['author_id'] %}
+                    <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">Изменить</a>
+                    <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
+                        <button type="submit">Уничтожить</button>
+                    </form>
+                {% endif %}
+            </article>
         {% endfor %}
     </main>
 {% endblock %}

@@ -1,0 +1,14 @@
+<header>
+    <nav>
+        <a class="logo" href="{{ url_for('index') }}">Мыслепомойка</a>
+        <div class="user-nav">
+            {% if g.user %}
+                <a class="action" href="{{ url_for('blog.create') }}">Извергнуть мысль</a>
+                <a href="{{ url_for('auth.logout') }}">Свалить</a>
+            {% else %}
+                <a href="{{ url_for('auth.login') }}">Войти</a>
+                <a href="{{ url_for('auth.register') }}">Стать частью</a>
+            {% endif %}
+        </div>
+    </nav>
+</header>
