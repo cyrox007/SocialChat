@@ -3,23 +3,85 @@ main {
   width: 100%;
   margin: 0 auto;
   margin-top: 10px;
-  padding: 20px;
-  background: var(--color-light);
 }
 main h1 {
   text-align: center;
   margin-bottom: 1rem;
-  color: var(--color-dark);
+  color: var(--color-text-light);
 }
 main article {
-  padding: 10px;
+  padding: 15px 20px;
   border: 1px double var(--color-dark);
+  background: var(--color-main-dark);
+  border-radius: 12px;
+  -webkit-box-shadow: 0 0 0 0.5px #484848;
+          box-shadow: 0 0 0 0.5px #484848;
+  margin-bottom: 12px;
 }
-main article form {
+main article header {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-bottom: 1px solid var(--color-light);
+}
+main article header h2 {
+  color: var(--color-text-light);
+}
+main article header .about {
+  color: var(--color-text-second);
+}
+main article p.body {
+  padding: 10px 0;
+  color: var(--color-text-light);
+}
+main article .edit-post {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-top: 1px solid var(--color-light);
+}
+main article .edit-post a.update {
+  text-decoration: none;
+  color: var(--color-w);
+}
+main article .edit-post a.update,
+main article .edit-post form {
+  width: 30px;
+  height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-transition: background 0.2s ease;
+  transition: background 0.2s ease;
+}
+main article .edit-post a.update:hover,
+main article .edit-post form:hover {
+  background: var(--color-light);
+}
+main article .edit-post form {
   padding: 0;
-  max-width: 100%;
   border: none;
   margin: 0;
+  background: none;
+}
+main article .edit-post form button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: none;
+  border: none;
+  color: var(--color-w);
+  font-size: 16px;
+  font-family: var(--font-main);
 }
 
 section.create-post {
@@ -28,15 +90,41 @@ section.create-post {
   margin: 0 auto;
   margin-top: 10px;
   padding: 20px;
-  background: var(--color-light);
+  background: var(--color-main-dark);
 }
 section.create-post h1 {
   text-align: center;
+  color: var(--color-text-light);
 }
 section.create-post form {
   border: none;
   max-width: none;
   padding: 0;
+  background: none;
+}
+section.create-post form input,
+section.create-post form textarea {
+  background: var(--color-text-second);
+  color: var(--color-dark);
+}
+section.create-post form input::-webkit-input-placeholder, section.create-post form textarea::-webkit-input-placeholder {
+  color: var(--color-dark);
+}
+section.create-post form input::-moz-placeholder, section.create-post form textarea::-moz-placeholder {
+  color: var(--color-dark);
+}
+section.create-post form input:-ms-input-placeholder, section.create-post form textarea:-ms-input-placeholder {
+  color: var(--color-dark);
+}
+section.create-post form input::-ms-input-placeholder, section.create-post form textarea::-ms-input-placeholder {
+  color: var(--color-dark);
+}
+section.create-post form input::placeholder,
+section.create-post form textarea::placeholder {
+  color: var(--color-dark);
+}
+section.create-post form input[type=submit]:hover {
+  background: var(--color-w);
 }
 section.create-post form textarea {
   width: 100%;
