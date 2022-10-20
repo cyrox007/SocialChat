@@ -36,7 +36,7 @@ pip install -r requirements.txt
 ## Подключение базы данных SQLite3
 В этой версии приложения в качестве базы данных используеться SQLite3. 
 ``` bash 
-#команда генерации БД
+python ./db_create.py
 ```
 ## Запуск проекта 
 Находясь в папке с проектом, и активированным виртуальным окружением выполните следующую команду:
@@ -53,4 +53,11 @@ flask --app app --debug run
 or from file
 ``` bash
 python ./run_server.py
+```
+migration
+``` bash 
+alembic revision --message="Initial" --autogenerate
+```
+``` bash 
+alembic upgrade head
 ```
