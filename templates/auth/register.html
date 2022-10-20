@@ -11,7 +11,7 @@
     <label for="password">Password</label>
     <input type="password" name="password" id="password" placeholder="Введите пароль" required>
     <input type="submit" value="Register">
-    <p>Уже есть пароль - <a href="{{ url_for('auth.login') }}">Авторизация</a></p>
+    <p>Уже есть пароль - <a href="{{ url_for('login') }}">Авторизация</a></p>
 </form>
 
 {% endblock %}

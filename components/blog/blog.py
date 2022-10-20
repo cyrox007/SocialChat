@@ -1,3 +1,5 @@
+""" ФАЙЛ СТАРЫЙ И НЕ АКТУЛЬНЫЙ, ОСТАВИЛ ПОТОМУ ЧТО НЕ ВСЕ ПЕРЕПИСАЛ В НОВУЮ СТРУКТУРУ """
+
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
