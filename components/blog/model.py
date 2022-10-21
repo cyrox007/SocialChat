@@ -1,9 +1,9 @@
 from components.user.model import User
 from sqlalchemy import Column, Integer, String, DateTime, Text, ForeignKey
-from setting import Base, db_session
+from database import Database
 from datetime import datetime
 
-class Posts(Base):
+class Posts(Database.Base):
     __tablename__ = 'post'
 
     id = Column(Integer, primary_key=True)
@@ -13,7 +13,7 @@ class Posts(Base):
     body = Column(Text, nullable=False)
 
     @classmethod
-    def get_posts(cls, user_id):
+    def get_posts(cls, db_session, user_id):
         posts = db_session.query(
             Posts.id, 
             Posts.author_id, 
@@ -22,10 +22,9 @@ class Posts(Base):
             Posts.body,
             User.username
             ).join(User).all()
-        db_session.close()
         return posts
 
-    def insert_new_post(title, text, author):
+    def insert_new_post(db_session, title, text, author):
         post = Posts(
             author_id=author,
             title=title,
@@ -33,9 +32,8 @@ class Posts(Base):
         )
         db_session.add(post)
         db_session.commit()
-        db_session.close()
 
-    def get_post(id):
+    def get_post(db_session, id):
         post = db_session.query(
             Posts.id,
             Posts.author_id, 
@@ -45,19 +43,16 @@ class Posts(Base):
         ).filter(
             Posts.id == id
         ).first()
-        db_session.close()
         return post
 
-    def update_post(id, title, text):
+    def update_post(db_session, id, title, text):
         datapost = db_session.query(Posts).filter(Posts.id == id).first()
         datapost.title = title
         datapost.body = text
         db_session.add(datapost)
         db_session.commit()
-        db_session.close()
 
-    def delete_post(id):
+    def delete_post(db_session, id):
         datapost = db_session.query(Posts).filter(Posts.id == id).first()
         db_session.delete(datapost)
         db_session.commit()
-        db_session.close()

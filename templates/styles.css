@@ -1,4 +1,6 @@
 {% include 'core/style.css' %}
 {% include 'shared/header/style.css' %}
+{% include 'shared/sidebar/style.css' %}
 {% include 'auth/style.css' %}
 {% include 'home/style.css' %}
+{% include 'profile/style.css' %}

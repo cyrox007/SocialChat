@@ -1,5 +1,6 @@
 from flask.views import MethodView
-from flask import render_template, session, redirect, url_for, request
+from flask import render_template, session, redirect, url_for, request, flash
+from database import Database
 from components.auth.decorator import login_required
 from components.user.model import User
 from components.blog.model import Posts
@@ -8,11 +9,13 @@ from components.blog.model import Posts
 class MainPage(MethodView):
     @login_required
     def get(self):
-        userdata = User.login(session['login'])
-        posts = Posts.get_posts(userdata.id)
+        db_session = Database.connect_database()
+        user = User.login(db_session, session.get('login'))
+        posts = Posts.get_posts(db_session, user.id)
+        db_session.close()
         return render_template(
             'home/index.html', 
-            user_id=userdata.id, 
+            user_id=user.id, 
             posts=posts
             )
 
@@ -24,39 +27,50 @@ class CreatePost(MethodView):
 
     @login_required
     def post(self):
+        db_session = Database.connect_database()
+        user = User.login(db_session, session.get('login'))
+        
         title = request.form.get('title')
         body = request.form.get('body')
+        
         if title is None or body is None:
-            pass
-        userdata = User.login(session['login'])
-        Posts.insert_new_post(title=title, text=body, author=userdata.id)
+            flash("Заголовок и текст не могут быть пустыми")
+        
+        Posts.insert_new_post(db_session, title, body, user.id)
+        db_session.close()
         return redirect(url_for('index'))
 
 
 class UpdatePost(MethodView):
     @login_required
     def get(self, id):
-        user_id = User.get_user_id(session['login'])
-        post = Posts.get_post(id=id)
-        if user_id != post.author_id:
-            print(user_id)
-            print(post.author_id)
-            return 
+        db_session = Database.connect_database()
+        user = User.login(db_session, session.get('login'))
 
+        post = Posts.get_post(db_session, id=id)
+        if user.id != post.author_id:
+            return redirect(url_for('404'), 404)
+        
+        db_session.close()
         return render_template('blog/update.html', post=post)
 
     def post(self, id):
+        db_session = Database.connect_database()
+        
         title = request.form.get('title')
         body = request.form.get('body')
-        Posts.update_post(id=id, title=title, text=body)
+        
+        Posts.update_post(db_session, id, title, body)
+
+        db_session.close()
         return redirect(url_for('index'))
 
 
 class DeletePost(MethodView):
-    @login_required
-    def get(self, id):
-        pass
-
     def post(self, id):
-        Posts.delete_post(id=id)
+        db_session = Database.connect_database()
+        
+        Posts.delete_post(db_session, id)
+        
+        db_session.close()
         return redirect(url_for('index'))

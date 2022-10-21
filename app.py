@@ -5,8 +5,9 @@ from setting import config
 
 
 def create_app() -> Flask:
-    from components.auth import router as auth_router
-    from components.blog import router as blog_router
+    from views.auth import router as auth_router
+    from views.blog import router as blog_router
+    from views.profile import router as profile_router
     
     app = Flask(__name__, static_folder='static')
     app.config.from_mapping(
@@ -16,5 +17,6 @@ def create_app() -> Flask:
 
     auth_router.install(app)
     blog_router.install(app)
+    profile_router.install(app)
 
     return app

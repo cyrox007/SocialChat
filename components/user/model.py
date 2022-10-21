@@ -1,8 +1,10 @@
-from sqlalchemy import Column, Integer, String
-from setting import Base, db_session
+from email.policy import default
+from sqlalchemy import Column, Integer, String, DATE, ForeignKey
+from werkzeug.security import generate_password_hash
 
+from database import Database
 
-class User(Base):
+class User(Database.Base):
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True)
@@ -14,21 +16,30 @@ class User(Base):
 
 
     @classmethod
-    def login(cls, login):
+    def login(cls, db_session, login):
         user = db_session.query(User).filter(
             User.username == login
             ).first()
-        db_session.close()
         return user
 
 
     @classmethod
-    def get_user_id(cls, login):
-        user_id = db_session.query(User.id).filter(
-            User.username == login
-            ).first()
+    def registering_new_user(cls, db_session, login, password):
+        new_user = User(
+            username=login,
+            password=generate_password_hash(password=password)
+        )
+        db_session.add(new_user)
+        db_session.commit()
+        return new_user
 
-        db_session.close()
-        return user_id.id
 
+class Profile(Database.Base):
+    __tablename__ = 'profiles'
 
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    first_name = Column(String(50), nullable=True)
+    surname = Column(String(50), nullable=True)
+    age = Column(DATE, nullable=True)
+    avatar = Column(String, default='default_img.webp')

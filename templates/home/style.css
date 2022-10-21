@@ -3,13 +3,25 @@ main {
   width: 100%;
   margin: 0 auto;
   margin-top: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+main nav {
+  width: 160px;
 }
 main h1 {
   text-align: center;
   margin-bottom: 1rem;
   color: var(--color-text-light);
 }
-main article {
+main .feed {
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+}
+main .feed article {
+  width: 100%;
   padding: 15px 20px;
   border: 1px double var(--color-dark);
   background: var(--color-main-dark);
@@ -18,23 +30,23 @@ main article {
           box-shadow: 0 0 0 0.5px #484848;
   margin-bottom: 12px;
 }
-main article header {
+main .feed article header {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
   border-bottom: 1px solid var(--color-light);
 }
-main article header h2 {
+main .feed article header h2 {
   color: var(--color-text-light);
 }
-main article header .about {
+main .feed article header .about {
   color: var(--color-text-second);
 }
-main article p.body {
+main .feed article p.body {
   padding: 10px 0;
   color: var(--color-text-light);
 }
-main article .edit-post {
+main .feed article .edit-post {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -43,12 +55,12 @@ main article .edit-post {
           align-items: center;
   border-top: 1px solid var(--color-light);
 }
-main article .edit-post a.update {
+main .feed article .edit-post a.update {
   text-decoration: none;
   color: var(--color-w);
 }
-main article .edit-post a.update,
-main article .edit-post form {
+main .feed article .edit-post a.update,
+main .feed article .edit-post form {
   width: 30px;
   height: 30px;
   display: -webkit-box;
@@ -63,17 +75,17 @@ main article .edit-post form {
   -webkit-transition: background 0.2s ease;
   transition: background 0.2s ease;
 }
-main article .edit-post a.update:hover,
-main article .edit-post form:hover {
+main .feed article .edit-post a.update:hover,
+main .feed article .edit-post form:hover {
   background: var(--color-light);
 }
-main article .edit-post form {
+main .feed article .edit-post form {
   padding: 0;
   border: none;
   margin: 0;
   background: none;
 }
-main article .edit-post form button {
+main .feed article .edit-post form button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
