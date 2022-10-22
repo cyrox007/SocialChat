@@ -1,29 +1,21 @@
 {% extends "core/base.html" %}
+{% import 'elements/post/index.html' as post_macro %}
 
 {% block content %}
-    
     <main>
         {% include 'shared/sidebar/index.html' %}
         
         <section class="feed">
             {% for post in posts %}
-                <article>
-                    <header>
-                        <h2>{{ post['title'] }}</h2>
-                        <div class="about">
-                            by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}
-                        </div>
-                    </header>
-                    <p class="body">{{ post['body'] }}</p>
-                    {% if user_id == post['author_id'] %}
-                        <div class="edit-post">
-                            <a class="update" href="{{ url_for('blog.update', id=post['id']) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
-                                <button type="submit"><i class="fa-solid fa-trash"></i></button>
-                            </form>
-                        </div>
-                    {% endif %}
-                </article>
+                {{ post_macro.post(
+                    post.id,
+                    post.title,
+                    post.body,
+                    post.created,
+                    post.username,
+                    post.author_id,
+                    user_id
+                ) }}
             {% endfor %}
         </section>
     </main>

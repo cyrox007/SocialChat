@@ -11,7 +11,7 @@ class MainPage(MethodView):
     def get(self):
         db_session = Database.connect_database()
         user = User.login(db_session, session.get('login'))
-        posts = Posts.get_posts(db_session, user.id)
+        posts = Posts.get_posts(db_session)
         db_session.close()
         return render_template(
             'home/index.html', 

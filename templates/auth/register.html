@@ -11,6 +11,11 @@
         <input name="username" id="username" placeholder="Введите логин" required>
         <label for="password">Password</label>
         <input type="password" name="password" id="password" placeholder="Введите пароль" required>
+        <hr>
+        <input type="text" name="first-name" id="first-name" placeholder="Ваше имя">
+        <input type="text" name="surname" id="surname" placeholder="Вашa фамилия">
+        <input type="date" name="age" id="age">
+        <input type="file" name="avatar" id="avatar">
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}

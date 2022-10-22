@@ -13,7 +13,7 @@ class Posts(Database.Base):
     body = Column(Text, nullable=False)
 
     @classmethod
-    def get_posts(cls, db_session, user_id):
+    def get_posts(cls, db_session):
         posts = db_session.query(
             Posts.id, 
             Posts.author_id, 
@@ -21,6 +21,20 @@ class Posts(Database.Base):
             Posts.title,
             Posts.body,
             User.username
+            ).join(User).all()
+        return posts
+
+    @classmethod
+    def get_user_posts(cls, db_session, user_id):
+        posts = db_session.query(
+            Posts.id, 
+            Posts.author_id, 
+            Posts.created, 
+            Posts.title,
+            Posts.body,
+            User.username
+            ).filter(
+                Posts.author_id == user_id
             ).join(User).all()
         return posts
 

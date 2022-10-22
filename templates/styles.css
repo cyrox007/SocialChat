@@ -1,4 +1,5 @@
 {% include 'core/style.css' %}
+{% include 'elements/post/style.css' %}
 {% include 'shared/header/style.css' %}
 {% include 'shared/sidebar/style.css' %}
 {% include 'auth/style.css' %}
