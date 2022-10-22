@@ -26,7 +26,14 @@ class ProfilePage(MethodView):
         db_session.close()
         return render_template(
             'profile/index.html',
-            user_id = user.id,
+            user_id=user.id,
+            login=login,
             profile=profile,
             posts=posts
         )
+
+
+class SubstractAuthor(MethodView):
+    @login_required
+    def post(self, login):
+        pass

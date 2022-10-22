@@ -65,6 +65,25 @@
 .profile__set-btn a:hover {
   opacity: 0.88;
 }
+.profile__substract {
+  background: none;
+  padding: 0;
+}
+.profile__substract button {
+  border: none;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none;
+  background: var(--color-grey);
+  color: var(--color-text-light);
+  padding: 5px 16px;
+  border-radius: 8px;
+  -webkit-transition: opacity 0.15s ease;
+  transition: opacity 0.15s ease;
+}
+.profile__substract button:hover {
+  opacity: 0.88;
+}
 
 .user-feed {
   margin-top: 10px;

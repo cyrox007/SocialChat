@@ -61,6 +61,7 @@
           justify-content: center;
   -webkit-transition: background 0.2s ease;
   transition: background 0.2s ease;
+  border-radius: 0;
 }
 .feed article .edit-post a.update:hover,
 .feed article .edit-post form:hover {

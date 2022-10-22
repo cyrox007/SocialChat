@@ -34,6 +34,11 @@ header nav a.logo {
   font-weight: 600;
   color: var(--color-w);
 }
+@media screen and (max-width: 480px) {
+  header nav a.logo {
+    font-size: 18px;
+  }
+}
 header nav .user-nav {
   max-width: 200px;
   width: 100%;
@@ -44,11 +49,22 @@ header nav .user-nav {
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
+@media screen and (max-width: 480px) {
+  header nav .user-nav {
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+}
 header nav a {
   text-decoration: none;
   color: var(--color-main);
   -webkit-transition: color 0.15s ease;
   transition: color 0.15s ease;
+}
+@media screen and (max-width: 480px) {
+  header nav a {
+    font-size: 14px;
+  }
 }
 header nav a:hover {
   color: var(--color-w);

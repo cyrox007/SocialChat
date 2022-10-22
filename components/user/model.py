@@ -64,3 +64,13 @@ class Profile(Database.Base):
         )
         db_session.add(profile)
         db_session.commit()
+
+
+class UserToSubscriptions(Database.Base):
+    __tablename__ = 'user_to_subscriptions'
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    author_id = Column(Integer, ForeignKey('user.id'))
+
+    
