@@ -7,7 +7,7 @@
     <article>
         <header>
             <div class="profile__total_info">
-                <img src="{{ url_for('static', filename='uploads/us_avatars/user_default.jpg') }}" alt="{{ img }}" srcset="">
+                <img src="{{ url_for('static', filename=profile.avatar) }}" alt="{{ img }}" width="150" height="150">
                 <div class="profile__total_info--col">
                     <h1>{{ profile.first_name }} {{ profile.surname }}</h1>
                     <p>День рождения: {{ profile.age.strftime('%d %b %Y') }}</p>

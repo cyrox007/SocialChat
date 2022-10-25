@@ -1,0 +1,26 @@
+aside.sidebar {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    background: none;
+    display: flex;
+    flex-direction: column;
+    width: 172px;
+    margin-right: 10px;
+    a {
+        height: 30px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        color: var(--color-text-light);
+        border-radius: 8px;
+        transition: background .15s;
+        &:hover {
+            text-decoration: none;
+            background: rgba($color: #ffffff, $alpha: .08);
+        }
+        i {
+            padding: 0 10px;
+            color: var(--color-light-second);
+        }
+    }
+}

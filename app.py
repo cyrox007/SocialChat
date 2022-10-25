@@ -1,4 +1,3 @@
-from distutils.debug import DEBUG
 from flask import Flask
 from sqlalchemy.ext.declarative import declarative_base
 from setting import config
