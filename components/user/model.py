@@ -1,7 +1,9 @@
-from email.policy import default
+import os
 from sqlalchemy import Column, Integer, String, DATE, ForeignKey
 from werkzeug.security import generate_password_hash
+from werkzeug.utils import secure_filename
 from datetime import datetime
+from setting import config
 
 from database import Database
 
@@ -64,6 +66,28 @@ class Profile(Database.Base):
         )
         db_session.add(profile)
         db_session.commit()
+
+    
+    @classmethod
+    def update_profile(cls, db_session, user_id, first_name, surname, age, avatar):
+        profile = Profile.get_profile(db_session, user_id)
+        profile.first_name = first_name
+        profile.surname = surname
+        profile.age = datetime.strptime(age, "%Y-%m-%d").date()
+        if avatar.filename == '':
+            profile.avatar = profile.avatar
+        else:
+            old_avatar = profile.avatar
+            filename = secure_filename(avatar.filename)
+            profile.avatar = config.AVATAR_DIR+filename
+            avatar.save(os.path.join(config.FULL_AVATARS_PATH, filename))
+            old_avatar = old_avatar.split('/')
+            old_avatar = old_avatar[-1]
+            os.remove(os.path.join(config.FULL_AVATARS_PATH, old_avatar))
+
+        db_session.add(profile)
+        db_session.commit()
+            
 
 
 class UserToSubscriptions(Database.Base):

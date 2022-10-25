@@ -15,7 +15,7 @@
             </div>
             {% if profile.user_id == user_id %}
                 <div class="profile__set-btn">
-                    <a href="{{ url_for('index') }}">Редактировать профиль</a>
+                    <a href="{{ url_for('profile.edit', login=session['login']) }}">Редактировать профиль</a>
                 </div>
             {% else %}
                 <form action="{{ url_for('profile.substract', login=login) }}" method="post" class="profile__substract">

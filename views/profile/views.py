@@ -33,6 +33,48 @@ class ProfilePage(MethodView):
         )
 
 
+class EditProfile(MethodView):
+    @login_required
+    def get(self, login):
+        db_session = Database.connect_database()
+
+        if session.get('login') != login:
+            return redirect(url_for('404'))
+
+        user = User.login(db_session, login)
+        user_profile = Profile.get_profile(db_session, user.id)
+
+        db_session.close()
+        return render_template(
+            'profile/edit.html', 
+            profile=user_profile
+            )
+
+    @login_required
+    def post(self, login):
+        db_session = Database.connect_database()
+        
+        user = User.login(db_session, login)
+
+        first_name = request.form.get('first-name')
+        surname = request.form.get('surname')
+        age = request.form.get('age')
+        avatar = request.files['avatar']
+
+        Profile.update_profile(
+            db_session=db_session, 
+            user_id=user.id,
+            first_name=first_name,
+            surname=surname,
+            age=age,
+            avatar=avatar
+            )
+
+        
+        db_session.close()
+        return redirect(url_for('profile.index', login=login))
+
+
 class SubstractAuthor(MethodView):
     @login_required
     def post(self, login):
