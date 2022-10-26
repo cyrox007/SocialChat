@@ -8,7 +8,7 @@
         {% include 'shared/sidebar/index.html' %}
         
         <section class="feed">
-            {% if posts == None %}
+            {% if posts == None or not posts %}
                 <p id="no-post">А вы тут что? Котеек ждали?</p>
             {% else %}
                 {% for post in posts %}
