@@ -110,3 +110,15 @@ class UnsubscribeAuthor(MethodView):
         
         db_session.close()
         return redirect(url_for('profile.index', login=login))
+
+
+class UsersListPage(MethodView):
+    @login_required
+    def get(self):
+        db_session = Database.connect_database()
+        users = User.get_users(db_session)
+        db_session.close()
+        return render_template(
+            'users/index.html',
+            users=users
+        )

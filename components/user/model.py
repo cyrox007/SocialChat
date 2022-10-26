@@ -37,6 +37,15 @@ class User(Database.Base):
         db_session.commit()
         return new_user
 
+    @classmethod
+    def get_users(cls, db_session):
+        return db_session.query(
+            User.id,
+            User.username,
+            Profile.first_name,
+            Profile.surname,
+            Profile.avatar
+        ).join(Profile).all()
 
 class Profile(Database.Base):
     __tablename__ = 'profiles'

@@ -17,3 +17,7 @@ def install(app):
         '/profile/<string:login>/unsubscribe',
         view_func=views.UnsubscribeAuthor.as_view('profile.unsubscribe')
     )
+    app.add_url_rule(
+        '/users',
+        view_func=views.UsersListPage.as_view('authors')
+    )
