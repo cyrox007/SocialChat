@@ -134,6 +134,7 @@ class UserToSubscriptions(Database.Base):
 
     @classmethod
     def get_user_subscribed(self, db_session, user_id):
-        subscribed_list = db_session.query(UserToSubscriptions).filter(
+        return db_session.query(UserToSubscriptions).filter(
             UserToSubscriptions.user_id == user_id
         ).all()
+        

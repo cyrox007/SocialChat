@@ -1,4 +1,4 @@
-from components.user.model import User
+from components.user.model import User, UserToSubscriptions
 from sqlalchemy import Column, Integer, String, DateTime, Text, ForeignKey
 from database import Database
 from datetime import datetime
@@ -26,10 +26,27 @@ class Posts(Database.Base):
 
     @classmethod
     def get_feed(cls, db_session, user_id):
-        posts = Posts.get_posts(db_session)
-        for post in posts:
-            pass
-        return posts
+        substr = UserToSubscriptions.get_user_subscribed(db_session, user_id)
+        tmp = []
+        feed =[]
+        for item in substr:
+            posts = db_session.query(
+                Posts.id, 
+                Posts.author_id, 
+                Posts.created, 
+                Posts.title,
+                Posts.body,
+                User.username
+            ).join(User).filter(
+                Posts.author_id == item.author_id
+            ).all()
+            tmp.append(posts)
+        
+        for item in tmp:
+            for post in item:
+                feed.append(post)
+
+        return feed    
 
     @classmethod
     def get_user_posts(cls, db_session, user_id):
