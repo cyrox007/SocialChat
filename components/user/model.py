@@ -74,13 +74,17 @@ class Profile(Database.Base):
         profile.first_name = first_name
         profile.surname = surname
         profile.age = datetime.strptime(age, "%Y-%m-%d").date()
+        
+        old_avatar = profile.avatar
         if avatar.filename == '':
             profile.avatar = profile.avatar
         else:
-            old_avatar = profile.avatar
+            
             filename = secure_filename(avatar.filename)
             profile.avatar = config.AVATAR_DIR+filename
             avatar.save(os.path.join(config.FULL_AVATARS_PATH, filename))
+        
+        if old_avatar != '':
             old_avatar = old_avatar.split('/')
             old_avatar = old_avatar[-1]
             os.remove(os.path.join(config.FULL_AVATARS_PATH, old_avatar))
