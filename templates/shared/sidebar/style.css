@@ -12,6 +12,22 @@ aside.sidebar {
   width: 172px;
   margin-right: 10px;
 }
+@media screen and (max-width: 600px) {
+  aside.sidebar {
+    position: absolute;
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+    -webkit-transition: -webkit-transform 0.2s ease-in-out;
+    transition: -webkit-transform 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+    background-color: var(--color-dark);
+  }
+  aside.sidebar.active {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
 aside.sidebar a {
   height: 30px;
   text-decoration: none;

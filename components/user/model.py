@@ -101,4 +101,39 @@ class UserToSubscriptions(Database.Base):
     user_id = Column(Integer, ForeignKey('user.id'))
     author_id = Column(Integer, ForeignKey('user.id'))
 
-    
+    @classmethod
+    def subscribe(cls, db_session, user_login, author_login):
+        user = User.login(db_session=db_session, login=user_login)
+        author = User.login(db_session=db_session, login=author_login)
+
+        substrAdd = UserToSubscriptions(
+            user_id=user.id,
+            author_id=author.id
+        )
+        db_session.add(substrAdd)
+        db_session.commit()
+
+    @classmethod
+    def check_substract(cls, db_session, user_login, author):
+        user = User.login(db_session, user_login)
+        a = User.login(db_session, author)
+        return db_session.query(UserToSubscriptions).filter(
+            UserToSubscriptions.user_id == user.id,
+            UserToSubscriptions.author_id == a.id
+        ).first()
+
+    @classmethod
+    def unsubscribe(cls, db_session, user_l, author_l):
+        substr = UserToSubscriptions.check_substract(
+            db_session=db_session,
+            user_login=user_l,
+            author=author_l
+            )
+        db_session.delete(substr)
+        db_session.commit()
+
+    @classmethod
+    def get_user_subscribed(self, db_session, user_id):
+        subscribed_list = db_session.query(UserToSubscriptions).filter(
+            UserToSubscriptions.user_id == user_id
+        ).all()

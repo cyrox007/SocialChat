@@ -1,22 +1,28 @@
 {% extends "core/base.html" %}
 {% import 'elements/post/index.html' as post_macro %}
 
+{% set title = 'Новости' %}
+
 {% block content %}
     <main>
         {% include 'shared/sidebar/index.html' %}
         
         <section class="feed">
-            {% for post in posts %}
-                {{ post_macro.post(
-                    post.id,
-                    post.title,
-                    post.body,
-                    post.created,
-                    post.username,
-                    post.author_id,
-                    user_id
-                ) }}
-            {% endfor %}
+            {% if posts == None %}
+                <p id="no-post">А вы тут что? Котеек ждали?</p>
+            {% else %}
+                {% for post in posts %}
+                    {{ post_macro.post(
+                        post.id,
+                        post.title,
+                        post.body,
+                        post.created,
+                        post.username,
+                        post.author_id,
+                        user_id
+                    ) }}
+                {% endfor %}
+            {% endif %}
         </section>
     </main>
 {% endblock %}

@@ -3,6 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
+    <meta name="description" content="Мыслепомойка">
     <title>{{ title }}</title>
     <style>
         {% include 'styles.css' %}
@@ -17,6 +18,9 @@
     <script src="https://kit.fontawesome.com/45cc6d666e.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <script>
+        let wtf = {};
+    </script>
     {% include 'shared/header/index.html' %}
     {% block content %}{% endblock %}
 </body>

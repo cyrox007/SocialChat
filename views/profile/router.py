@@ -13,3 +13,7 @@ def install(app):
         '/profile/<string:login>/substract',
         view_func=views.SubstractAuthor.as_view('profile.substract')
     )
+    app.add_url_rule(
+        '/profile/<string:login>/unsubscribe',
+        view_func=views.UnsubscribeAuthor.as_view('profile.unsubscribe')
+    )

@@ -1,7 +1,7 @@
 from flask.views import MethodView
 from flask import render_template, session, redirect, url_for, request, flash
 from database import Database
-from components.user.model import User, Profile
+from components.user.model import User, Profile, UserToSubscriptions
 from components.blog.model import Posts
 from components.auth.decorator import login_required
 
@@ -12,10 +12,18 @@ class ProfilePage(MethodView):
     @login_required
     def get(self, login):
         db_session = Database.connect_database()
+        subscribe_author = None
 
         if session.get('login') != login:
             user = User.login(db_session, session.get('login'))
             otherUser = User.login(db_session, login)
+            
+            subscribe_author = UserToSubscriptions.check_substract(
+                db_session=db_session,
+                user_login=session.get('login'),
+                author=login
+            )
+            
             profile = Profile.get_profile(db_session, otherUser.id)
             posts = Posts.get_user_posts(db_session, otherUser.id)
         else:
@@ -29,6 +37,7 @@ class ProfilePage(MethodView):
             user_id=user.id,
             login=login,
             profile=profile,
+            subscribe=subscribe_author,
             posts=posts
         )
 
@@ -78,4 +87,26 @@ class EditProfile(MethodView):
 class SubstractAuthor(MethodView):
     @login_required
     def post(self, login):
-        pass
+        db_session = Database.connect_database()
+        UserToSubscriptions.subscribe(
+            db_session=db_session, 
+            user_login=session.get('login'), 
+            author_login=login
+            )
+        db_session.close()
+        return redirect(url_for('profile.index', login=login))
+
+
+class UnsubscribeAuthor(MethodView):
+    @login_required
+    def post(self, login):
+        db_session = Database.connect_database()
+        
+        UserToSubscriptions.unsubscribe(
+            db_session=db_session,
+            user_l=session.get('login'),
+            author_l=login
+        )
+        
+        db_session.close()
+        return redirect(url_for('profile.index', login=login))

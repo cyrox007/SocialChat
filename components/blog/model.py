@@ -25,6 +25,13 @@ class Posts(Database.Base):
         return posts
 
     @classmethod
+    def get_feed(cls, db_session, user_id):
+        posts = Posts.get_posts(db_session)
+        for post in posts:
+            pass
+        return posts
+
+    @classmethod
     def get_user_posts(cls, db_session, user_id):
         posts = db_session.query(
             Posts.id, 

@@ -1,8 +1,10 @@
 {% extends "core/base.html" %}
 {% import 'elements/post/index.html' as post_macro %}
 
+{% set title = profile.first_name + " " + profile.surname %}
+
 {% block content %}
-<section class="profile">
+<div class="profile">
     {% include 'shared/sidebar/index.html' %}
     <article>
         <header>
@@ -17,9 +19,13 @@
                 <div class="profile__set-btn">
                     <a href="{{ url_for('profile.edit', login=session['login']) }}">Редактировать профиль</a>
                 </div>
-            {% else %}
+            {% elif subscribe == None %}
                 <form action="{{ url_for('profile.substract', login=login) }}" method="post" class="profile__substract">
                     <button>Подписаться на автора</a>
+                </form>
+            {% else %}
+                <form action="{{ url_for('profile.unsubscribe', login=login) }}" method="post" class="profile__substract">
+                    <button>Отписаться</a>
                 </form>
             {% endif %}
         </header>
@@ -37,5 +43,5 @@
             {% endfor %}
         </section>
     </article>
-</section>
+</div>
 {% endblock %}

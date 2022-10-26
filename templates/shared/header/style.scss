@@ -12,12 +12,32 @@ header {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        #m-nav-btn {
+            display: none;
+            margin: 0 15px;
+            font-size: 20px;
+            color: var(--color-text-light);
+            @media screen and (max-width: 600px) {
+                display: block;
+            }
+        }
         a.logo {
             font-size: 24px;
             font-weight: 600;
             color: var(--color-w);
             @media screen and (max-width: 480px) {
-                font-size: 18px;
+                display: flex;
+                width: 100px;
+                visibility: hidden;
+                position: relative;
+                &::after {
+                    visibility: visible;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    font-size: 18px;
+                    content: "WTF";
+                }
             }
         }
         .user-nav {

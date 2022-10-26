@@ -1,5 +1,8 @@
 <header>
     <nav>
+        <div id="m-nav-btn">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+        </div>
         <a class="logo" href="{{ url_for('index') }}">Мыслепомойка</a>
         <div class="user-nav">
             {% if session['login'] %}
