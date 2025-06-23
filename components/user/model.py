@@ -1,5 +1,6 @@
 import os
 from sqlalchemy import Column, Integer, String, DATE, ForeignKey
+from sqlalchemy.orm import Session
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
 from datetime import datetime
@@ -12,7 +13,8 @@ class User(Database.Base):
 
     id = Column(Integer, primary_key=True)
     username = Column(String(50), nullable=False, unique=True)
-    password = Column(String(50), nullable=False)
+    hash_password = Column(String(50), nullable=False)
+    email = Column(String(255), nullable=False, unique=True)
 
     def __repr__(self):
         return f"User {self.username}"
@@ -52,7 +54,7 @@ class Profile(Database.Base):
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'))
-    first_name = Column(String(50), nullable=True)
+    firstname = Column(String(50), nullable=True)
     surname = Column(String(50), nullable=True)
     age = Column(DATE, nullable=True)
     avatar = Column(String, default='uploads/us_avatars/user_default.jpg')
@@ -65,10 +67,10 @@ class Profile(Database.Base):
         return user
 
     @classmethod
-    def insert_profile(cls, db_session, user_id, first_name, surname, age, avatar):
+    def insert_profile(cls, db_session: Session, user_id, firstname, surname, age, avatar):
         profile = Profile(
             user_id=user_id,
-            first_name=first_name,
+            firstname=firstname,
             surname=surname,
             age=datetime.strptime(age, "%Y-%m-%d").date(),
             avatar=avatar

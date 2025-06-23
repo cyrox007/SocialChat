@@ -7,7 +7,7 @@ from components.blog.model import Posts
 
 
 class MainPage(MethodView):
-    @login_required
+    #@login_required
     def get(self):
         db_session = Database.connect_database()
         user = User.login(db_session, session.get('login'))

@@ -1,19 +1,29 @@
-from calendar import c
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class Config:
-    secret_key = b'blablabla'
-    pathfile = os.path.dirname(os.path.abspath(__file__))
-    SQLALCHEMY_MIGRATE_REPO = os.path.join(pathfile, 'db_repository')
-    databaseUri = f'sqlite:///{pathfile}/instance/flask.db'
+    # Секретный ключ
+    SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret-key-for-development")
+
+    # Путь к проекту
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+    # Конфигурация базы данных
+    DB_HOST = os.getenv("DB_HOST", "localhost")
+    DB_PORT = os.getenv("DB_PORT", "5432")
+    DB_NAME = os.getenv("DB_NAME", "chat")
+    DB_USER = os.getenv("DB_USER", "postgres")
+    DB_PASSWORD = os.getenv("DB_PASSWORD", "postgres")
+    def database_url(self, async_mode=False):
+        driver = "postgresql+asyncpg" if async_mode else "postgresql"
+        return f"{driver}://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
 
 
-    FULL_AVATARS_PATH = pathfile+'/static/uploads/us_avatars/'
+    # Настройки аватаров
+    FULL_AVATARS_PATH = os.path.join(BASE_DIR, 'static', 'uploads', 'us_avatars')
     AVATAR_DIR = 'uploads/us_avatars/'
-    
-    @property
-    def db_url(self):
-        return f'sqlite:///{self.pathfile}/instance/flask.db'
 
 
 config = Config()
