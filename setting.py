@@ -20,7 +20,6 @@ class Config:
         driver = "postgresql+asyncpg" if async_mode else "postgresql"
         return f"{driver}://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
 
-
     # Настройки аватаров
     FULL_AVATARS_PATH = os.path.join(BASE_DIR, 'static', 'uploads', 'us_avatars')
     AVATAR_DIR = 'uploads/us_avatars/'
